@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trade Journal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Header ────────────────────────────────────────────────────── -->
+  <header class="app-header">
+    <h1>Trade Journal</h1>
+    <span class="version">v1.0.0</span>
+  </header>
+
+  <!-- ── Stats Panel ───────────────────────────────────────────────── -->
+  <section class="stats-panel" id="statsPanel">
+    <div class="stat-card">
+      <span class="stat-label">Total Trades</span>
+      <span class="stat-value" id="statTotal">0</span>
+    </div>
+    <div class="stat-card win">
+      <span class="stat-label">Wins</span>
+      <span class="stat-value" id="statWins">0</span>
+    </div>
+    <div class="stat-card loss">
+      <span class="stat-label">Losses</span>
+      <span class="stat-value" id="statLosses">0</span>
+    </div>
+    <div class="stat-card be">
+      <span class="stat-label">Break-Even</span>
+      <span class="stat-value" id="statBE">0</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Win Rate</span>
+      <span class="stat-value" id="statWinRate">0%</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Avg RR</span>
+      <span class="stat-value" id="statAvgRR">0.00</span>
+    </div>
+  </section>
+
+  <!-- ── Add Trade Form ────────────────────────────────────────────── -->
+  <section class="form-section">
+    <h2 id="formTitle">Add Trade</h2>
+    <form id="tradeForm" novalidate>
+      <input type="hidden" id="editId" value="" />
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="fDate">Date</label>
+          <input type="date" id="fDate" required />
+        </div>
+        <div class="field">
+          <label for="fPair">Pair / Symbol</label>
+          <input type="text" id="fPair" placeholder="e.g. EUR/USD" required />
+        </div>
+        <div class="field">
+          <label for="fDirection">Direction</label>
+          <select id="fDirection" required>
+            <option value="Buy">Buy</option>
+            <option value="Sell">Sell</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="fEntry">Entry Price</label>
+          <input type="number" id="fEntry" step="any" placeholder="0.00000" required />
+        </div>
+        <div class="field">
+          <label for="fSL">Stop Loss</label>
+          <input type="number" id="fSL" step="any" placeholder="0.00000" required />
+        </div>
+        <div class="field">
+          <label for="fTP">Take Profit</label>
+          <input type="number" id="fTP" step="any" placeholder="0.00000" required />
+        </div>
+        <div class="field">
+          <label for="fRisk">Risk %</label>
+          <input type="number" id="fRisk" step="any" min="0" placeholder="1.0" required />
+        </div>
+        <div class="field">
+          <label for="fOutcome">Outcome</label>
+          <select id="fOutcome" required>
+            <option value="Open">Open</option>
+            <option value="Win">Win</option>
+            <option value="Loss">Loss</option>
+            <option value="BE">Break-Even</option>
+          </select>
+        </div>
+        <div class="field field-full">
+          <label for="fNotes">Notes</label>
+          <textarea id="fNotes" rows="2" placeholder="Optional notes about this trade…"></textarea>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" id="submitBtn">Add Trade</button>
+        <button type="button" class="btn btn-secondary" id="cancelEditBtn" style="display:none">Cancel</button>
+      </div>
+      <p class="form-error" id="formError"></p>
+    </form>
+  </section>
+
+  <!-- ── Trades Table ───────────────────────────────────────────────── -->
+  <section class="table-section">
+    <h2>Trade Log</h2>
+    <div class="table-wrapper">
+      <table id="tradesTable">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Pair</th>
+            <th>Dir</th>
+            <th>Entry</th>
+            <th>SL</th>
+            <th>TP</th>
+            <th>Risk %</th>
+            <th>RR</th>
+            <th>Outcome</th>
+            <th>Notes</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tradesBody">
+          <!-- Rows injected by app.js -->
+        </tbody>
+      </table>
+      <p class="empty-msg" id="emptyMsg">No trades yet. Add your first trade above.</p>
+    </div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
